@@ -1,34 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_nodejs/constants/global_variable.dart';
 import 'package:flutter_nodejs/features/auth/screens/auth_screen.dart';
+import 'package:flutter_nodejs/features/auth/services/auth_service.dart';
+import 'package:flutter_nodejs/features/home/screens/home_screen.dart';
+import 'package:flutter_nodejs/provider/user_provider.dart';
 import 'package:flutter_nodejs/router.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(
+      create: (context) => UserProvider(),
+    )
+  ], child: const MyApp()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final AuthService authService = AuthService();
+
+  @override
+  void initState() {
+    super.initState();
+
+    authService.getUserData(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-       scaffoldBackgroundColor: GloalVariable.backgroundColor,
-       colorScheme: const ColorScheme.light(
-        primary: GloalVariable.secondaryColor, 
-       ),
-       appBarTheme: AppBarTheme(elevation: 0, iconTheme: IconThemeData(color: Colors.black))
-      ),
+          scaffoldBackgroundColor: GloalVariable.backgroundColor,
+          colorScheme: const ColorScheme.light(
+            primary: GloalVariable.secondaryColor,
+          ),
+          appBarTheme: AppBarTheme(
+              elevation: 0, iconTheme: IconThemeData(color: Colors.black))),
       onGenerateRoute: ((settings) => genetateRoute(settings)),
-      home: Center(child: Builder(
-        builder: (context) {
-          return ElevatedButton(onPressed: () {
-            Navigator.pushNamed(context, AuthScreen.routeName);}, child: Text('Click'),);
-        }
-      )),
+      home: Provider.of<UserProvider>(context).user.token.isNotEmpty
+          ? const HomeScreen()
+          : const AuthScreen(),
     );
   }
 }
