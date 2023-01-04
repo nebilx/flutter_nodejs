@@ -6,6 +6,7 @@ const userSchema = mongoose.Schema({
     require: true,
     trim: true,
   },
+
   email: {
     type: String,
     require: true,
@@ -19,6 +20,7 @@ const userSchema = mongoose.Schema({
       message: "Please enter a valid email address",
     },
   },
+
   password: {
     type: String,
     require: true,
@@ -30,10 +32,12 @@ const userSchema = mongoose.Schema({
       message: "Please enter long password",
     },
   },
+
   address: {
     type: String,
     default: "",
   },
+
   type: {
     type: String,
     default: "user",

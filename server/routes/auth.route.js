@@ -7,6 +7,7 @@ const {
   verifytoken,
   getuserdata,
 } = require("../controller/auth.controller");
+
 //SIGNUP
 authRouter.post("/api/signup", signup);
 

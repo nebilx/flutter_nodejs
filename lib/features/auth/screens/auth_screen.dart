@@ -26,7 +26,6 @@ class _AuthScreenState extends State<AuthScreen> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _emailController.dispose();
     _passwordController.dispose();
@@ -51,7 +50,7 @@ class _AuthScreenState extends State<AuthScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: GloalVariable.grayBackgroundColor,
+      backgroundColor: GlobalVariable.grayBackgroundColor,
       body: SafeArea(
           child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -64,14 +63,14 @@ class _AuthScreenState extends State<AuthScreen> {
             ),
             ListTile(
               tileColor: _auth == Auth.signup
-                  ? GloalVariable.backgroundColor
-                  : GloalVariable.grayBackgroundColor,
+                  ? GlobalVariable.backgroundColor
+                  : GlobalVariable.grayBackgroundColor,
               title: const Text(
                 'Create Account',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               leading: Radio(
-                  activeColor: GloalVariable.secondaryColor,
+                  activeColor: GlobalVariable.secondaryColor,
                   value: Auth.signup,
                   groupValue: _auth,
                   onChanged: (Auth? val) {
@@ -110,14 +109,14 @@ class _AuthScreenState extends State<AuthScreen> {
               ),
             ListTile(
               tileColor: _auth == Auth.signin
-                  ? GloalVariable.backgroundColor
-                  : GloalVariable.grayBackgroundColor,
+                  ? GlobalVariable.backgroundColor
+                  : GlobalVariable.grayBackgroundColor,
               title: const Text(
                 'Sign In',
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
               leading: Radio(
-                  activeColor: GloalVariable.secondaryColor,
+                  activeColor: GlobalVariable.secondaryColor,
                   value: Auth.signin,
                   groupValue: _auth,
                   onChanged: (Auth? val) {
