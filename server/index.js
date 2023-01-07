@@ -6,7 +6,8 @@ const app = express();
 const mongoose = require("mongoose");
 const connectDB = require("./config/db.config");
 const authRouter = require("./routes/auth.route");
-
+const adminRouter = require("./routes/admin.route");
+const productRouter = require("./routes/product.route");
 //connect to MongoDB
 connectDB();
 
@@ -19,6 +20,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use(authRouter);
+app.use(adminRouter);
+app.use(productRouter);
 
 app.listen(PORT, () =>
   console.log(`Server running at http://localhost:${PORT}`)

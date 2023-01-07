@@ -4,10 +4,13 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final String text;
 
+  final int maxLines;
+
   const CustomTextField({
     super.key,
     required this.controller,
     required this.text,
+    this.maxLines = 1,
   });
 
   @override
@@ -26,6 +29,7 @@ class CustomTextField extends StatelessWidget {
         }
         return null;
       },
+      maxLines: maxLines,
     );
   }
 }
