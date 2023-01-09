@@ -4,7 +4,9 @@ import 'package:flutter_nodejs/features/admin/screens/add_product_screen.dart';
 import 'package:flutter_nodejs/features/auth/screens/auth_screen.dart';
 import 'package:flutter_nodejs/features/home/screens/category_deals_screen.dart';
 import 'package:flutter_nodejs/features/home/screens/home_screen.dart';
-import 'package:flutter_nodejs/features/search/screens/serach_screen.dart';
+import 'package:flutter_nodejs/features/product_detail/screens/product_detail_screen.dart';
+import 'package:flutter_nodejs/features/search/screens/search_screen.dart';
+import 'package:flutter_nodejs/models/product.dart';
 
 Route<dynamic> generateRoute(RouteSettings routeSettings) {
   switch (routeSettings.name) {
@@ -45,6 +47,14 @@ Route<dynamic> generateRoute(RouteSettings routeSettings) {
         settings: routeSettings,
         builder: (_) => SearchScreen(
           searchQuery: searchQuery,
+        ),
+      );
+    case ProductDetailScreen.routeName:
+      var product = routeSettings.arguments as Product;
+      return MaterialPageRoute(
+        settings: routeSettings,
+        builder: (_) => ProductDetailScreen(
+          product: product,
         ),
       );
 

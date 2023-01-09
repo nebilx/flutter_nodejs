@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter_nodejs/models/rating.dart';
+
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class Product {
   final String? id;
@@ -9,7 +11,7 @@ class Product {
   final double price;
   final String category;
   final List<String> images;
-  //rating
+  final List<Rating>? rating;
 
   Product(
       {this.id,
@@ -18,7 +20,8 @@ class Product {
       required this.quantity,
       required this.price,
       required this.category,
-      required this.images});
+      required this.images,
+      this.rating});
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
@@ -29,6 +32,7 @@ class Product {
       'price': price,
       'category': category,
       'images': images,
+      'rating': rating,
     };
   }
 
@@ -43,6 +47,13 @@ class Product {
       images: List<String>.from(
         (map['images'] as List<String>),
       ),
+      rating: map['ratings'] != null
+          ? List<Rating>.from(
+              map['ratings']?.map(
+                (x) => Rating.fromMap(x),
+              ),
+            )
+          : null,
     );
   }
 

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_nodejs/common/widgets/loader.dart';
 import 'package:flutter_nodejs/constants/global_variable.dart';
 import 'package:flutter_nodejs/features/home/widgets/address_box.dart';
+import 'package:flutter_nodejs/features/product_detail/screens/product_detail_screen.dart';
 import 'package:flutter_nodejs/features/search/services/search_services.dart';
 import 'package:flutter_nodejs/features/search/widget/searched_widget.dart';
 import 'package:flutter_nodejs/models/product.dart';
@@ -24,7 +25,6 @@ class _SearchScreenState extends State<SearchScreen> {
   List<Product>? products;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 
@@ -34,7 +34,7 @@ class _SearchScreenState extends State<SearchScreen> {
     setState(() {});
   }
 
-  void navigateToSeachScreen(String query) {
+  void navigateToSearchScreen(String query) {
     Navigator.pushNamed(context, SearchScreen.routeName, arguments: query);
   }
 
@@ -59,7 +59,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     borderRadius: BorderRadius.circular(7),
                     elevation: 1,
                     child: TextFormField(
-                      onFieldSubmitted: navigateToSeachScreen,
+                      onFieldSubmitted: navigateToSearchScreen,
                       decoration: InputDecoration(
                           prefixIcon: InkWell(
                             onTap: () {},
@@ -125,8 +125,17 @@ class _SearchScreenState extends State<SearchScreen> {
                   child: ListView.builder(
                       itemCount: products!.length,
                       itemBuilder: (context, index) {
-                        return SearchedProduct(
-                          product: products![index],
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              ProductDetailScreen.routeName,
+                              arguments: products![index],
+                            );
+                          },
+                          child: SearchedProduct(
+                            product: products![index],
+                          ),
                         );
                       }),
                 ),
