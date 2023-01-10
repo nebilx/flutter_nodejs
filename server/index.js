@@ -8,6 +8,7 @@ const connectDB = require("./config/db.config");
 const authRouter = require("./routes/auth.route");
 const adminRouter = require("./routes/admin.route");
 const productRouter = require("./routes/product.route");
+const userRouter = require("./routes/user.route");
 //connect to MongoDB
 connectDB();
 
@@ -22,6 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(authRouter);
 app.use(adminRouter);
 app.use(productRouter);
+app.use(userRouter);
 
 app.listen(PORT, () =>
   console.log(`Server running at http://localhost:${PORT}`)

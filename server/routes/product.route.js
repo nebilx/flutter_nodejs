@@ -1,7 +1,7 @@
 const express = require("express");
 const productRouter = express.Router();
 const auth = require("../middleware/auth.middleware");
-const Product = require("../model/product.model");
+const { Product } = require("../model/product.model");
 
 // /products?category=essentials
 // /products:category=essentials
@@ -54,6 +54,36 @@ productRouter.get("/api/rate-product", auth, async (req, res) => {
     product = await product.save();
     req.json(product);
   } catch (e) {
+    return res.status(500).json({ error: e.message });
+  }
+});
+
+productRouter.get("/api/deal-of-day", auth, async (req, res) => {
+  try {
+    let products = await Product.find({});
+
+    // A -> 10
+    // B -> 30
+    // C -> 50
+    //calculate total point of all
+    // a and b product a and product b
+    products = products.sort((a, b) => {
+      let aSum = 0;
+      let bSum = 0;
+
+      for (let i = 0; i < a.ratings.length; i++) {
+        (aSum += a.ratings[i]), rating;
+      }
+
+      for (let i = 0; i < b.ratings.length; i++) {
+        (bSum += b.ratings[i]), rating;
+      }
+
+      return aSum < bSum ? 1 : -1;
+    });
+
+    res.status(200).json(products[0]);
+  } catch (error) {
     return res.status(500).json({ error: e.message });
   }
 });

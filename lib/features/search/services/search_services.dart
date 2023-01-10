@@ -14,7 +14,7 @@ class SearchServices {
     required BuildContext context,
     required String searchQuery,
   }) async {
-    final userprovider = Provider.of<UserProvider>(context, listen: false);
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
     List<Product> productList = [];
 
     try {
@@ -22,7 +22,7 @@ class SearchServices {
         Uri.parse('$uri/api/products/search/$searchQuery'),
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
-          'x-auth-token': userprovider.user.token,
+          'x-auth-token': userProvider.user.token,
         },
       );
 
